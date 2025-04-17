@@ -33,7 +33,7 @@ Error Message:
 
 Its a ```Java.Lang.RuntimeException```
 
-GitHub Copilot Siggests:
+GitHub Copilot Suggests:
 
 The beep typically signals that the camera hardware is locked or unavailable. While the file creation confirms that the recorder was partially prepared, it seems like the camera source wasn't properly acquired before recording started. This may happen due to:
 1. Another application or process using the camera.
