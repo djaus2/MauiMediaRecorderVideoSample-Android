@@ -56,6 +56,8 @@ And a longer delay
 [HWUI] Davey! duration=27374ms; Flags=0, FrameTimelineVsyncId=181826,
 ```
 
+Maybe have to fork it off to another thread ??
+
 
 
 
