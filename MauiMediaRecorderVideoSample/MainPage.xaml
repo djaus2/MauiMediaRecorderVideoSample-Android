@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MauiCameraViewSample.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+            <Image
+                x:Name="MyImage"
+                Source="dotnet_bot.png"
+                HeightRequest="185"
+                Aspect="AspectFit" />
+            <!--toolkit:CameraView x:Name="MyCamera" MediaCaptured="MyCamera_MediaCaptured"  /  -->
+            <Button Text="Start" Clicked="Button_StartRecording_Clicked" />
+            <Button Text="Pause" Clicked="Button_PauseRecording_Clicked" />
+            <Button Text="Continue" Clicked="Button_ContinueRecording_Clicked" />
+            <Button Text="Stop" Clicked="Button_StopRecordingClicked" />
+            
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
