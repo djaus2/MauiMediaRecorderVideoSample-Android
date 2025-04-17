@@ -1,5 +1,5 @@
 # .NET MAUI Media Recorder Sample - Android
-Sample code to test using MediaRecorder to record video. Fails at StartRecording.
+Sample code to test using MediaRecorder to record video. Fails at start recording.
 
 
 ```
