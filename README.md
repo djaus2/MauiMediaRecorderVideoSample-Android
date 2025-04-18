@@ -61,6 +61,7 @@ Maybe have to fork it off to another thread ??
 ## Footnote
 - As suggested in Pull Requests, changed the TargetFramework slightly, still not working.
 - Also separated Video Setup from Video Start.
+- 
 ? PS: Why isn't there a Video Capture example in the CommunityyTollkit.Maui?
 
 
