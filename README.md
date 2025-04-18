@@ -58,6 +58,10 @@ And a longer delay
 
 Maybe have to fork it off to another thread ??
 
+## Footnote
+- As suggested in Pull Requests, changed the TargetFramework slightly
+- Also separated Video Setup from Video Start.
+
 
 
 
