@@ -61,6 +61,7 @@ Maybe have to fork it off to another thread ?? _Have though noticed that some of
 ## Footnote
 - As suggested in Pull Requests, changed the TargetFramework slightly, still not working.
 - Also separated Video Setup from Video Start.
+- Have had a L-O-N-G conversation with GitHub Copilot on this, going around in circles at times! Think I reached its limits! If it hasn't been thoroughly done, publicly, previously, then it can only help incrementaly!
 
 ? PS: Why isn't there a Video Capture example in the CommunityyToolkit.Maui?
 
