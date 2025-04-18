@@ -86,6 +86,8 @@ namespace MauiCameraViewSample.Platforms.Android
                     catch (Java.Lang.IllegalStateException ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"IllegalStateException: {ex.Message}");
+                        _mediaRecorder = null;
+                        _state = VideoRecorderState.IsNull;
                     }
                     catch (Java.Lang.RuntimeException ex)
                     {
@@ -93,10 +95,14 @@ namespace MauiCameraViewSample.Platforms.Android
                         // [MediaRecorder] start failed: -22
                         // [0:] RuntimeException: start failed.
                         System.Diagnostics.Debug.WriteLine($"RuntimeException: {ex.Message}");
+                        _mediaRecorder = null;
+                        _state = VideoRecorderState.IsNull;
                     }
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                        _mediaRecorder = null;
+                        _state = VideoRecorderState.IsNull;
                     }
                 }
             }
