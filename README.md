@@ -56,8 +56,13 @@ And a longer delay
 [HWUI] Davey! duration=27374ms; Flags=0, FrameTimelineVsyncId=181826,
 ```
 
-Maybe have to fork it off to another thread ??
+Maybe have to fork it off to another thread ?? _Have though noticed that some of controls relying on permisssions only work in the main thread._
 
+## Footnote
+- As suggested in Pull Requests, changed the TargetFramework slightly, still not working.
+- Also separated Video Setup from Video Start.
+- Have had a L-O-N-G conversation with GitHub Copilot on this, going around in circles at times! Think I reached its limits! If it hasn't been thoroughly done, publicly, previously, then it can only help incrementaly! Try-this...try-that!
 
+? PS: Why isn't there a Video Capture example in the CommunityyToolkit.Maui?
 
 
