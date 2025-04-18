@@ -1,7 +1,10 @@
-﻿using Android.Media;
+﻿using Android.Content;
+using Android.Media;
+using Android.Provider;
 using CommunityToolkit.Maui.Core;
 using CommunityToolkit.Maui.Core.Primitives;
 using CommunityToolkit.Maui.Views;
+using Java.IO;
 using MauiCameraViewSample.Platforms.Android;
 using MauiCameraViewSample.Services;
 using Microsoft.Maui.Media;
@@ -24,7 +27,8 @@ namespace MauiCameraViewSample
         string? path = "";
         private void Button_GetReady4Recording(object sender, EventArgs e) //, Android.OS.Environment AndroidEnvironment)
         {
-            string? directory = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMovies)?.AbsolutePath;
+            /*
+             * string? directory = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMovies)?.AbsolutePath;
             if (string.IsNullOrEmpty(directory))
             {
                 // Handle the error
@@ -35,11 +39,46 @@ namespace MauiCameraViewSample
                 Directory.CreateDirectory(directory);
             }
             path = Path.Combine(directory, "video.mp4");
+            */
 
-            GetReady4Recording(path);
+            // Get the external storage directory for movies as suggested by GitHub Copilot
+            ContentResolver? resolver = Android.App.Application.Context.ContentResolver;
+            if(resolver == null)
+            {
+                // Handle error
+                System.Diagnostics.Debug.WriteLine("ContentResolver is null");
+                return;
+            }
+            ContentValues values = new ContentValues();
+            values.Put(MediaStore.Video.Media.InterfaceConsts.DisplayName, "video.mp4");
+            values.Put(MediaStore.Video.Media.InterfaceConsts.MimeType, "video/mp4");
+            values.Put(MediaStore.Video.Media.InterfaceConsts.RelativePath, "Movies/");
+            if(MediaStore.Video.Media.ExternalContentUri==null)
+            {
+                // Handle error
+                System.Diagnostics.Debug.WriteLine("ExternalContentUri is null");
+                return;
+            }
+            Android.Net.Uri? uri = resolver.Insert(MediaStore.Video.Media.ExternalContentUri, values);
+            if (uri == null)
+            {
+                // Handle error
+                System.Diagnostics.Debug.WriteLine("Uri is null");
+                return;
+            }
+
+            FileDescriptor? fileDescriptor = resolver.OpenFileDescriptor(uri, "w").FileDescriptor;
+            if (fileDescriptor == null)
+            {
+                // Handle error
+                System.Diagnostics.Debug.WriteLine("FileDescriptor is null");
+                return;
+            }
+
+            GetReady4Recording(fileDescriptor);
         }
 
-        public void GetReady4Recording(string res)
+        public void GetReady4Recording(FileDescriptor res)
         {
             _videoRecorderService?.GetReady4Recording(res);
 

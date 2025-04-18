@@ -18,6 +18,7 @@ using Android.Media;
 using MauiCameraViewSample.Services;
 using MauiCameraViewSample.Platforms.Android;
 using static AndroidX.Camera.Video.VideoRecordEvent;
+using Java.IO;
 
 [assembly: Dependency(typeof(VideoRecorderService))]
 namespace MauiCameraViewSample.Platforms.Android
@@ -33,28 +34,31 @@ namespace MauiCameraViewSample.Platforms.Android
             System.Diagnostics.Debug.WriteLine("VideoRecorderService initialized.");
         }
 
-        public void GetReady4Recording(string path)
+        public void GetReady4Recording(FileDescriptor path)
         {
             if (_state == VideoRecorderState.IsNull)
             {
                 if (_mediaRecorder == null)
                 {
 
-                    _mediaRecorder = new MediaRecorder(); //(context);
-
-                    // Not using Audio
-                    //_mediaRecorder.SetAudioSource(AudioSource.Mic);
-                    _mediaRecorder.SetVideoSource(VideoSource.Camera);
-                    System.Diagnostics.Debug.WriteLine("Camera source set successfully.");
-                    _mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
-                    _mediaRecorder.SetOutputFile(path);
-                    _mediaRecorder.SetVideoEncoder(VideoEncoder.Default);
-                    //_mediaRecorder.SetAudioEncoder(AudioEncoder.Default);
                     try
                     {
+                        _mediaRecorder = new MediaRecorder();  // Create a fresh instance
+                        //_mediaRecorder = new MediaRecorder(context); //(context);
+                        _mediaRecorder.Reset();
+                        // Not using Audio
+                        //_mediaRecorder.SetAudioSource(AudioSource.Mic);
+                        _mediaRecorder.SetVideoSource(VideoSource.Camera);
+                        System.Diagnostics.Debug.WriteLine("Camera source set successfully.");
+                        _mediaRecorder.SetOutputFormat(OutputFormat.Mpeg4);
+                        _mediaRecorder.SetVideoEncoder(VideoEncoder.H264);
+                        //_mediaRecorder.SetVideoEncoder(VideoEncoder.Default);
+                        _mediaRecorder.SetOutputFile(path);
+                        //_mediaRecorder.SetAudioEncoder(AudioEncoder.Default);
                         _mediaRecorder.Prepare();
                         _state = VideoRecorderState.Idle;
                         Thread.Sleep(5000); // Wait for the MediaRecorder to prepare
+                        System.Diagnostics.Debug.WriteLine("MediaRecorder prepared successfully.");
                     }
                     catch (Java.Lang.IllegalStateException ex)
                     {
@@ -67,6 +71,18 @@ namespace MauiCameraViewSample.Platforms.Android
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                    }
+                    finally
+                    {
+                        if (_state != VideoRecorderState.Idle)
+                        {
+                            if (_mediaRecorder != null)
+                            {
+                                _mediaRecorder.Release();
+                                _mediaRecorder = null;
+                                _state = VideoRecorderState.IsNull;
+                            }
+                        }
                     }
                 }
             }
@@ -86,8 +102,6 @@ namespace MauiCameraViewSample.Platforms.Android
                     catch (Java.Lang.IllegalStateException ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"IllegalStateException: {ex.Message}");
-                        _mediaRecorder = null;
-                        _state = VideoRecorderState.IsNull;
                     }
                     catch (Java.Lang.RuntimeException ex)
                     {
@@ -95,14 +109,22 @@ namespace MauiCameraViewSample.Platforms.Android
                         // [MediaRecorder] start failed: -22
                         // [0:] RuntimeException: start failed.
                         System.Diagnostics.Debug.WriteLine($"RuntimeException: {ex.Message}");
-                        _mediaRecorder = null;
-                        _state = VideoRecorderState.IsNull;
                     }
                     catch (Exception ex)
                     {
                         System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                        _mediaRecorder = null;
-                        _state = VideoRecorderState.IsNull;
+                    }
+                    finally
+                    {
+                        if (_state != VideoRecorderState.Recording)
+                        {
+                            if (_mediaRecorder != null)
+                            {
+                                _mediaRecorder.Release();
+                                _mediaRecorder = null;
+                                _state = VideoRecorderState.IsNull;
+                            }
+                        }
                     }
                 }
             }

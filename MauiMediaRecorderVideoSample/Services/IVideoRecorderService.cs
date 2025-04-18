@@ -11,6 +11,7 @@ using Android.Content;
 using AndroidX.Core.Content;
 using Android.OS;
 using AndroidX.Lifecycle;
+using Java.IO;
 
 namespace MauiCameraViewSample.Services
 {
@@ -23,7 +24,7 @@ namespace MauiCameraViewSample.Services
     }
     public interface IVideoRecorderService
     {
-        void GetReady4Recording(string path);
+        void GetReady4Recording(FileDescriptor path);
         void StartRecording();
         void PauseRecording();
 
