@@ -22,7 +22,7 @@ namespace MauiCameraViewSample
 
 
         string? path = "";
-        private void Button_StartRecording_Clicked(object sender, EventArgs e) //, Android.OS.Environment AndroidEnvironment)
+        private void Button_GetReady4Recording(object sender, EventArgs e) //, Android.OS.Environment AndroidEnvironment)
         {
             string? directory = Android.OS.Environment.GetExternalStoragePublicDirectory(Android.OS.Environment.DirectoryMovies)?.AbsolutePath;
             if (string.IsNullOrEmpty(directory))
@@ -36,12 +36,18 @@ namespace MauiCameraViewSample
             }
             path = Path.Combine(directory, "video.mp4");
 
-            StartVideoRecording(path);
+            GetReady4Recording(path);
         }
 
-        public void StartVideoRecording(string res)
+        public void GetReady4Recording(string res)
         {
-            _videoRecorderService?.StartRecording(res);
+            _videoRecorderService?.GetReady4Recording(res);
+
+        }
+
+        private void Button_StartRecording_Clicked(object sender, EventArgs e)
+        {
+            _videoRecorderService?.StartRecording();
             
         }
 
@@ -59,7 +65,6 @@ namespace MauiCameraViewSample
         {
             _videoRecorderService?.StopRecording();
         }
-
 
     }
 

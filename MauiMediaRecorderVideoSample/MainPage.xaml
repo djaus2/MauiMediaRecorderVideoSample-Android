@@ -13,7 +13,7 @@
                 Source="dotnet_bot.png"
                 HeightRequest="185"
                 Aspect="AspectFit" />
-            <!--toolkit:CameraView x:Name="MyCamera" MediaCaptured="MyCamera_MediaCaptured"  /  -->
+            <Button Text="New Video" Clicked="Button_GetReady4Recording" />
             <Button Text="Start" Clicked="Button_StartRecording_Clicked" />
             <Button Text="Pause" Clicked="Button_PauseRecording_Clicked" />
             <Button Text="Continue" Clicked="Button_ContinueRecording_Clicked" />

@@ -16,13 +16,15 @@ namespace MauiCameraViewSample.Services
 {
     enum VideoRecorderState
     {
+        IsNull,
         Idle,
         Recording,
         Paused
     }
     public interface IVideoRecorderService
     {
-        void StartRecording(string path);
+        void GetReady4Recording(string path);
+        void StartRecording();
         void PauseRecording();
 
         void ContinueRecording();
