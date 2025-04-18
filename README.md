@@ -56,7 +56,7 @@ And a longer delay
 [HWUI] Davey! duration=27374ms; Flags=0, FrameTimelineVsyncId=181826,
 ```
 
-Maybe have to fork it off to another thread ??
+Maybe have to fork it off to another thread ?? _Have noticed that some of controls relying on permisssions only work in the main thread._
 
 ## Footnote
 - As suggested in Pull Requests, changed the TargetFramework slightly, still not working.
